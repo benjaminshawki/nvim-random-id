@@ -5,17 +5,23 @@ local config = require('random_id.config')
 
 -- Function to generate a random human-readable ID
 local function random_human_id()
-	local adjectives = config.adjectives
-	local animals = config.animals
-	local verbs = config.verbs
-	local adverbs = config.adverbs
+	-- Ensure configuration is loaded
+	if not config.config.adjectives or not config.config.animals or not config.config.verbs or not config.config.adverbs then
+		print("Configuration not properly initialized")
+		return "error_initializing_config"
+	end
+
+	local adjectives = config.config.adjectives
+	local animals = config.config.animals
+	local verbs = config.config.verbs
+	local adverbs = config.config.adverbs
 
 	local id = string.format(
 		"%s_%s_%s_%s",
 		adjectives[math.random(#adjectives)],
 		animals[math.random(#animals)],
 		verbs[math.random(#verbs)],
-		adverbs[math.random(#adverbs)],
+		adverbs[math.random(#adverbs)]
 	)
 	return id
 end

@@ -1035,10 +1035,8 @@ M.default_config = {
 	},
 }
 
--- Current configuration
 M.config = {}
 
--- Setup function to merge user configuration with default configuration
 function M.setup(user_config)
 	M.config = vim.tbl_deep_extend('force', M.default_config, user_config or {})
 end
