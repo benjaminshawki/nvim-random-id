@@ -1,6 +1,6 @@
 local M = {}
 
-M.default_config = {
+M.config = {
 	adjectives = {
 		"acidic",
 		"active",
@@ -1035,10 +1035,35 @@ M.default_config = {
 	},
 }
 
-M.config = {}
+-- Function to generate a random human-readable ID
+local function random_human_id()
+	local adjectives = M.config.adjectives
+	local animals = M.config.animals
+	local verbs = M.config.verbs
+	local adverbs = M.config.adverbs
 
+	local id = string.format(
+		"%s_%s_%s_%s",
+		adjectives[math.random(#adjectives)],
+		animals[math.random(#animals)],
+		verbs[math.random(#verbs)],
+		adverbs[math.random(#adverbs)]
+	)
+	return id
+end
+
+-- Function to generate a key-value pair and insert it into the buffer
+function _G.add_key_value_pair()
+	local key = random_human_id()
+	local value = vim.fn.input("Enter value: ")
+	local pair = string.format('"%s": "%s"', key, value)
+	vim.api.nvim_put({ pair }, 'l', true, true)
+end
+
+-- Setup function to configure the plugin
 function M.setup(user_config)
-	M.config = vim.tbl_deep_extend('force', M.default_config, user_config or {})
+	M.config = vim.tbl_deep_extend('force', M.config, user_config or {})
+	vim.api.nvim_set_keymap('n', '<leader>cg', ':lua add_key_value_pair()<CR>', { noremap = true, silent = true })
 end
 
 return M
