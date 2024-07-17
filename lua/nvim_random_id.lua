@@ -1055,4 +1055,4 @@ function _G.add_key_value_pair()
 end
 
 -- Map the function to a key combination
-vim.api.nvim_set_keymap('n', '<leader>cg', ':lua add_key_value_pair()<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>cg', ':lua add_key_value_pair()<CR>', { noremap = true, silent = true })
